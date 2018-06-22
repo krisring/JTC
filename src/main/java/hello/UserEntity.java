@@ -25,6 +25,13 @@ public class UserEntity {
 
     }
 
+    @Override
+    public String toString() {
+        return String.format(
+                "UserEntity[userId=%d, name='%s', userEmail='%s']",
+                userId, name, userEmail);
+    }
+
     public Long getUserId() {
         return userId;
     }

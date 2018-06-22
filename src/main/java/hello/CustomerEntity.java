@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -12,6 +13,7 @@ public class CustomerEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+    private Long customerRelations;
     private String customerCompanyName;
     private String companyEmail;
     private String userId;
@@ -65,9 +67,8 @@ public class CustomerEntity {
         this.id = companyId;
     }
 
-    public List<Long> getCustomerCompanyRelations(String companyId) {
-        new CustomerRepository() customerRepository;
-        return customerRepository.findCompanyRelationByCompanyId(companyId);
+    public List<Long> getCustomerCompanyRelations(Long companyId) {
+        return Collections.singletonList(customerRelations);
     }
 
     public void setCustomerCompanyRelation(String companyId, String companyId2) {

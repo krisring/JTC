@@ -10,24 +10,26 @@ public class MessageEntity {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
+    private Long messageId;
     private String message;
     private Long senderId;
     private Long recipientId;
-    private Long companyId;
-    private boolean read;
+//    private Long companyId;
+//    private boolean read;
 
     protected MessageEntity() {}
 
-    public MessageEntity(String message){
+    public MessageEntity(String message, Long senderId, Long recipientId){
+        this.senderId = senderId;
+        this.recipientId = recipientId;
         this.message = message;
     }
 
     @Override
     public String toString(){
         return String.format(
-                "MessageEntity[id=%d, message='%s']",
-                id, message);
+                "MessageEntity[messageId=%d, senderId=%d, recipientId=%d, message='%s']",
+                messageId, senderId, recipientId, message);
     }
 
     public void setMessage(Long senderId, Long recipientId, String message) {

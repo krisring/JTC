@@ -35,6 +35,5 @@ public class MessageController {
                 return "Company relation not found. ";
             }
         }
-        return "Message NOT Sent. ";
     }
 }

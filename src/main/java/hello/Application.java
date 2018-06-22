@@ -18,23 +18,42 @@ public class Application {
     }
 
     @Bean
-    public CommandLineRunner demo(CustomerRepository customerRepository, UserRepository userRepository) {
+    public CommandLineRunner demo(CustomerRepository customerRepository, UserRepository userRepository, MessageRepository messageRepository) {
         return (args) -> {
             // save a couple of customers
-            customerRepository.save(new CustomerEntity("Jack", "Bauer"));
-            customerRepository.save(new CustomerEntity("Chloe", "O'Brian"));
-            customerRepository.save(new CustomerEntity("Kim", "Bauer"));
+            customerRepository.save(new CustomerEntity("Jack", "Bauer.Jack@fake.com"));
+            customerRepository.save(new CustomerEntity("Chloe", "OBrian.Chloe@fake.com"));
+            customerRepository.save(new CustomerEntity("Kim", "Bauer.Kim@fake.com"));
             customerRepository.save(new CustomerEntity("David", "Palmer"));
             customerRepository.save(new CustomerEntity("Michelle", "Dessler"));
-            userRepository.save(new UserEntity("Michelle", "Dessler"));
+            userRepository.save(new UserEntity("Michelle", "Dessler@michelle.com"));
+            userRepository.save(new UserEntity("Dave", "Dave@dave.com"));
+            messageRepository.save(new MessageEntity("MESSAGE", 6L, 7L));
 
-            // fetch all customers
+
+            // fetch all company customers
             log.info("Customers found with findAll():");
             log.info("-------------------------------");
             for (CustomerEntity customerEntity : customerRepository.findAll()) {
                 log.info(customerEntity.toString());
             }
             log.info("");
+
+            // fetch all users
+            log.info("Users found with findAll():");
+            log.info("---------------------------");
+            for(UserEntity userEntity:userRepository.findAll()) {
+                log.info(userEntity.toString());
+            }
+            log.info("");
+
+            // fetch all messages
+            log.info("Messages found with findAll():");
+            log.info("---------------------------");
+            for(MessageEntity messageEntity:messageRepository.findAll()) {
+                log.info(messageEntity.toString());
+            }
+
 
             // fetch an individual customer by ID
 /*            customerRepository.findById(1L)
@@ -48,9 +67,7 @@ public class Application {
             // fetch customers by last name
             log.info("CustomerEntity found with findByLastName('Bauer'):");
             log.info("--------------------------------------------");
-            customerRepository.findByCustomerCompanyName("Bauer").forEach(bauer -> {
-                log.info(bauer.toString());
-            });
+            customerRepository.findByCustomerCompanyName("Bauer").forEach(bauer -> log.info(bauer.toString()));
 //             for (CustomerEntity bauer : repository.findByLastName("Bauer")) {
 //             	log.info(bauer.toString());
 //             }
